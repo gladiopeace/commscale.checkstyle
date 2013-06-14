@@ -10,7 +10,7 @@
 	<name>Mobicents :: Code Style</name>
 	<description>Checkstyle definition and IDE configurations</description>
 	<url>http://www.mobicents.org</url>
-	
+
 	<licenses>
 		<license>
 			<name>GNU LESSER GENERAL PUBLIC LICENSE</name>
@@ -33,9 +33,77 @@
 	</distributionManagement>
 
 
-	
-	<!--issueManagement> <system>Bugzilla</system> <url> http://code.google.com/p/mobicents/issues/list 
-		</url> </issueManagement -->
+
+	<profiles>
+		<!-- maven release profile, add all existent modules that build properly, 
+			so pom versions are updated and artifacts released -->
+		<profile>
+			<id>maven-release</id>
+			<!-- 
+			<modules>
+				<module>...</module>
+			</modules>
+			 -->
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-release-plugin</artifactId>
+						<configuration>
+							<autoVersionSubmodules>true</autoVersionSubmodules>
+							<preparationGoals>clean install</preparationGoals>
+							<autoVersionSubmodules>true</autoVersionSubmodules>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- binary release profile, add only modules that are included in the 
+			binary -->
+		<profile>
+			<id>release</id>
+		</profile>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>install</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.1.2</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<repositories>
 		<repository>
@@ -119,10 +187,10 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-    <!-- TODO: set this to proper value -->
+	<!-- TODO: set this to proper value -->
 	<scm>
-		<connection>scm:git:https://code.google.com/p/commscale/</connection>
-		<developerConnection>scm:git:https://code.google.com/p/commscale/</developerConnection>
+		<connection>scm:git:https://code.google.com/p/commscale.checkstyle/</connection>
+		<developerConnection>scm:git:https://code.google.com/p/commscale.checkstyle/</developerConnection>
 		<url>https://code.google.com/p/commscale/</url>
 	</scm>
 
