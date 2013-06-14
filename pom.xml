@@ -4,7 +4,7 @@
 
 	<groupId>org.mobicents</groupId>
 	<artifactId>checkstyle</artifactId>
-	<version>1.0.0.FINAL</version>
+	<version>1.0.1-SNAPSHOT</version>
 
 	<name>Mobicents :: Code Style</name>
 	<description>Checkstyle definition and IDE configurations</description>
